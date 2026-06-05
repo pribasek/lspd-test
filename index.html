@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Santos Police Department</title>
+    <style>
+        :root {
+            --lspd-blue: #0b1a30;
+            --lspd-gold: #b3924e;
+            --lspd-light: #f4f6f9;
+            --lspd-dark: #050b14;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--lspd-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--lspd-dark), var(--lspd-blue));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--lspd-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--lspd-gold);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--lspd-blue);
+            color: var(--lspd-blue);
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--lspd-blue);
+            color: white;
+        }
+
+        .form-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            border-top: 5px solid var(--lspd-blue);
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: var(--lspd-blue);
+            border-bottom: 2px solid var(--lspd-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--lspd-dark);
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--lspd-gold);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        button[type="submit"] {
+            background-color: var(--lspd-blue);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--lspd-dark);
+            border-bottom: 2px solid var(--lspd-gold);
+        }
+
+        /* Honeypot - Ochrana proti botům (Skryté pole) */
+        .hidden-field {
+            display: none !important;
+            tab-index: -1;
+            autocomplete: off;
+        }
+
+        .status-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Los Santos Police Department</h1>
+        <p>To Protect and to Serve</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('academy')">Přihláška do Akademie</button>
+            <button class="tab-btn" onclick="switchTab('complaint')">Podat stížnost</button>
+        </div>
+
+        <section id="academy-section" class="form-section active">
+            <h2>Nábor do LSPD Academy</h2>
+            <form id="academy-form">
+                <div class="hidden-field">
+                    <label>Nevyplňujte toto pole pokud jste člověk:</label>
+                    <input type="text" name="honeypot" id="academy-honeypot">
+                </div>
+
+                <div class="form-group">
+                    <label for="acad-name">Jméno a Příjmení (IC):</label>
+                    <input type="text" id="acad-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="acad-age">Věk (IC / OOC):</label>
+                    <input type="text" id="acad-age" required placeholder="25 / 18">
+                </div>
+                <div class="form-group">
+                    <label for="acad-discord">Discord (Uživatelské jméno):</label>
+                    <input type="text" id="acad-discord" required placeholder="johndoe#0000 nebo johndoe">
+                </div>
+                <div class="form-group">
+                    <label for="acad-reason">Proč se chcete přidat k LSPD? (Motivace):</label>
+                    <textarea id="acad-reason" required placeholder="Rozepište se..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="acad-experience">Máte předchozí zkušenosti u složek? (Pokud ano, jaké):</label>
+                    <textarea id="acad-experience" placeholder="Zkušenosti u EMS, LSPD na jiném serveru atd..."></textarea>
+                </div>
+                <button type="submit">Odeslat přihlášku</button>
+                <div id="academy-status" class="status-msg"></div>
+            </form>
+        </section>
+
+        <section id="complaint-section" class="form-section">
+            <h2>Podání stížnosti na příslušníka / incident</h2>
+            <form id="complaint-form">
+                <div class="hidden-field">
+                    <label>Nevyplňujte toto pole pokud jste člověk:</label>
+                    <input type="text" name="honeypot" id="complaint-honeypot">
+                </div>
+
+                <div class="form-group">
+                    <label for="comp-name">Vaše Jméno a Příjmení (IC):</label>
+                    <input type="text" id="comp-name" required placeholder="Anonymní nebo Vaše jméno">
+                </div>
+                <div class="form-group">
+                    <label for="comp-officer">Jméno / Badge number policisty (pokud víte):</label>
+                    <input type="text" id="comp-officer" placeholder="např. Officer Smith nebo neznámý">
+                </div>
+                <div class="form-group">
+                    <label for="comp-discord">Váš Discord (volitelné):</label>
+                    <input type="text" id="comp-discord" placeholder="Pro případné kontaktování">
+                </div>
+                <div class="form-group">
+                    <label for="comp-description">Popis incidentu:</label>
+                    <textarea id="comp-description" required placeholder="Detailně popište, co se stalo..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="comp-evidence">Důkazní materiál (Odkaz na video/foto):</label>
+                    <input type="text" id="comp-evidence" placeholder="https://youtube.com/... nebo https://imgur.com/...">
+                </div>
+                <button type="submit">Odeslat stížnost</button>
+                <div id="complaint-status" class="status-msg"></div>
+            </form>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
