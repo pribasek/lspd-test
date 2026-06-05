@@ -287,7 +287,7 @@
             <div class="info-grid">
                 <div class="info-card">
                     <h3>Naše mise</h3>
-                    <p>Posláním LSPD je chránit životy, majetek a práva všech obyvatel Los Santos, potírat kriminalitu a zajišťovat bezpečné prostředí pro život.</p>
+                    <p>Posláním LSPD jest chránit životy, majetek a práva všech obyvatel Los Santos, potírat kriminalitu a zajišťovat bezpečné prostředí pro život.</p>
                 </div>
                 <div class="info-card">
                     <h3>Naše hodnoty</h3>
@@ -362,26 +362,24 @@
     </div>
 
     <script>
-        // === KONFIGURACE WEBHOOKU ===
-        // SEM VLOŽ SVŮJ DISCORD WEBHOOK URL MEZI UVOZOVKY!
-        const WEBHOOK_URL = "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL"; 
+        // === KONFIGURACE WEBHOOKŮ ===
+        // SEM VLOŽ SVÉ DISCORD WEBHOOKY PRO KAŽDÝ KANÁL ZVLÁŠŤ
+        const WEBHOOK_AKADEMIE = "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL_PRO_AKADEMII"; 
+        const WEBHOOK_STIZNOSTI = "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL_PRO_STIZNOSTI"; 
 
         // === KÓD PRO PŘEPÍNÁNÍ STRÁNEK ===
         document.querySelectorAll('.nav-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const target = button.getAttribute('data-target');
                 
-                // Přepnutí aktivního vzhledu tlačítek
                 document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
 
-                // Skrytí všech sekcí a zobrazení té správné
                 document.querySelectorAll('.content-section').forEach(section => {
                     section.classList.remove('active');
                 });
                 document.getElementById(`${target}-section`).classList.add('active');
                 
-                // Jemné odrolování pod banner pro lepší čitelnost na mobilech
                 window.scrollTo({ top: 160, behavior: 'smooth' });
             });
         });
@@ -395,11 +393,10 @@
             statusDiv.style.color = isSuccess ? '#155724' : '#721c24';
         }
 
-        // Kontrola SPAMU - Uživatel může poslat formulář 1x za 5 minut
         function isSpamming(type) {
             const lastSubmit = localStorage.getItem(`lspd_cooldown_${type}`);
             if (lastSubmit && (Date.now() - parseInt(lastSubmit) < 300000)) {
-                return true; // Je v cooldownu
+                return true; 
             }
             return false;
         }
@@ -408,10 +405,8 @@
         document.getElementById('academy-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Honeypot ochrana - pokud skryté pole vyplnil bot, kód nepokračuje
             if (document.getElementById('academy-honeypot').value !== "") return;
 
-            // Spam ochrana
             if (isSpamming('acad')) {
                 showStatus('academy-status', "Můžete odeslat pouze jednu přihlášku každých 5 minut.", false);
                 return;
@@ -420,7 +415,7 @@
             const payload = {
                 embeds: [{
                     title: "🔵 NOVÁ PŘIHLÁŠKA DO LSPD AKADEMIE",
-                    color: 65840, // Modrá barva embedu
+                    color: 65840,
                     fields: [
                         { name: "Jméno a Příjmení (IC)", value: document.getElementById('acad-name').value, inline: true },
                         { name: "Věk (IC/OOC)", value: document.getElementById('acad-age').value, inline: true },
@@ -431,17 +426,15 @@
                 }]
             };
 
-            await sendToDiscord(payload, 'academy-status', 'acad', this);
+            await sendToDiscord(WEBHOOK_AKADEMIE, payload, 'academy-status', 'acad', this);
         });
 
         // === SPRACOVÁNÍ: STÍŽNOSTI ===
         document.getElementById('complaint-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Honeypot ochrana
             if (document.getElementById('complaint-honeypot').value !== "") return;
 
-            // Spam ochrana
             if (isSpamming('comp')) {
                 showStatus('complaint-status', "Můžete podat pouze jednu stížnost každých 5 minut.", false);
                 return;
@@ -450,7 +443,7 @@
             const payload = {
                 embeds: [{
                     title: "🔴 NOVÁ STÍŽNOST NA POLICISTU",
-                    color: 10027008, // Červená barva embedu
+                    color: 10027008,
                     fields: [
                         { name: "Stěžovatel (IC)", value: document.getElementById('comp-name').value, inline: true },
                         { name: "Obviněný policista", value: document.getElementById('comp-officer').value || "Neuvedeno", inline: true },
@@ -461,18 +454,18 @@
                 }]
             };
 
-            await sendToDiscord(payload, 'complaint-status', 'comp', this);
+            await sendToDiscord(WEBHOOK_STIZNOSTI, payload, 'complaint-status', 'comp', this);
         });
 
-        // Odesílací funkce
-        async function sendToDiscord(payload, statusId, type, formElement) {
-            if (WEBHOOK_URL === "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL") {
-                showStatus(statusId, "Systémová chyba: Administrátor nenastavil Discord Webhook v kódu.", false);
+        // Univerzální odesílací funkce s parametrem pro cílový webhook
+        async function sendToDiscord(url, payload, statusId, type, formElement) {
+            if (url.includes("SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL")) {
+                showStatus(statusId, "Systémová chyba: Administrátor nenastavil příslušný Discord Webhook v kódu.", false);
                 return;
             }
 
             try {
-                const response = await fetch(WEBHOOK_URL, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -480,8 +473,8 @@
 
                 if (response.ok) {
                     showStatus(statusId, "Záznam byl úspěšně odeslán do databáze LSPD!", true);
-                    localStorage.setItem(`lspd_cooldown_${type}`, Date.now().toString()); // Uloží čas odeslání
-                    formElement.reset(); // Vyčistí formulář
+                    localStorage.setItem(`lspd_cooldown_${type}`, Date.now().toString()); 
+                    formElement.reset(); 
                 } else {
                     showStatus(statusId, "Nepodařilo se navázat spojení s Discordem. Zkontrolujte kód.", false);
                 }
