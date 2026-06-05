@@ -3,122 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Los Santos Police Department</title>
+    <title>LSPD | Los Santos Police Department</title>
     <style>
+        /* === CSS STYLY === */
         :root {
-            --lspd-blue: #0b1a30;
-            --lspd-gold: #b3924e;
-            --lspd-light: #f4f6f9;
-            --lspd-dark: #050b14;
+            --lspd-blue: #0a1931;
+            --lspd-gold: #c29d4c;
+            --lspd-white: #ffffff;
+            --lspd-gray: #f4f4f4;
+            --danger: #990000;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', sans-serif; 
         }
 
-        body {
-            background-color: var(--lspd-light);
-            color: #333;
-            line-height: 1.6;
+        body { 
+            background-color: var(--lspd-gray); 
+            color: #333; 
         }
 
-        header {
-            background: linear-gradient(135deg, var(--lspd-dark), var(--lspd-blue));
+        /* Horní Navigační lišta */
+        .navbar {
+            background: var(--lspd-blue);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--lspd-gold);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
             color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid var(--lspd-gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
+            font-weight: 900;
+            font-size: 1.5rem;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
         }
 
-        header p {
+        .nav-links { 
+            display: flex; 
+            gap: 10px; 
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #ccc;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--lspd-gold);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Velký Úvodní Banner */
+        .hero-banner {
+            background: linear-gradient(rgba(10, 25, 49, 0.85), rgba(10, 25, 49, 0.85));
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-banner h1 { 
+            font-size: 2.5rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .hero-banner p {
             color: var(--lspd-gold);
             font-weight: bold;
-            letter-spacing: 1px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        /* Hlavní Obsahový Kontejner */
+        .container { 
+            max-width: 900px; 
+            margin: -30px auto 40px; 
+            position: relative; 
+            padding: 0 15px;
         }
 
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .tab-btn {
-            background-color: white;
-            border: 2px solid var(--lspd-blue);
-            color: var(--lspd-blue);
-            padding: 0.75rem 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--lspd-blue);
-            color: white;
-        }
-
-        .form-section {
+        .content-section {
             background: white;
-            padding: 2.5rem;
+            padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             display: none;
-            border-top: 5px solid var(--lspd-blue);
+            border-top: 4px solid var(--lspd-blue);
         }
 
-        .form-section.active {
-            display: block;
+        /* Aktivní sekce se zobrazí */
+        .content-section.active { 
+            display: block; 
+            animation: fadeIn 0.4s ease-out; 
         }
 
-        h2 {
-            margin-bottom: 1.5rem;
+        h2 { 
+            color: var(--lspd-blue); 
+            margin-bottom: 20px; 
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--lspd-gray);
+            padding-bottom: 10px;
+        }
+
+        .section-desc {
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Informační bloky na hlavní stránce */
+        .info-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            margin: 25px 0; 
+        }
+
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .info-card { 
+            background: var(--lspd-gray); 
+            padding: 20px; 
+            border-left: 4px solid var(--lspd-gold); 
+            border-radius: 0 4px 4px 0;
+        }
+
+        .info-card h3 {
             color: var(--lspd-blue);
-            border-bottom: 2px solid var(--lspd-light);
-            padding-bottom: 0.5rem;
+            margin-bottom: 10px;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
+        .info-text-block { 
+            margin-top: 30px; 
+            line-height: 1.8; 
+            background: #fdfdfd;
+            padding: 20px;
+            border: 1px dashed #ddd;
+            border-radius: 6px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--lspd-dark);
+        .info-text-block h3 {
+            margin-bottom: 10px;
+            color: var(--lspd-blue);
         }
 
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        /* Formuláře */
+        .lspd-form { 
+            margin-top: 25px; 
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 7px; 
+            font-weight: bold; 
+            color: var(--lspd-blue);
+        }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: 0.2s;
         }
 
         input:focus, textarea:focus {
             outline: none;
             border-color: var(--lspd-gold);
+            box-shadow: 0 0 5px rgba(194, 157, 76, 0.3);
         }
 
         textarea {
@@ -126,135 +212,283 @@
             min-height: 120px;
         }
 
-        button[type="submit"] {
-            background-color: var(--lspd-blue);
+        .submit-btn {
+            width: 100%; 
+            padding: 15px; 
+            background: var(--lspd-blue); 
             color: white;
-            border: none;
-            padding: 1rem 2rem;
+            border: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s;
             font-size: 1rem;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: var(--lspd-dark);
-            border-bottom: 2px solid var(--lspd-gold);
-        }
-
-        /* Honeypot - Ochrana proti botům (Skryté pole) */
-        .hidden-field {
-            display: none !important;
-            tab-index: -1;
-            autocomplete: off;
-        }
-
-        .status-msg {
-            margin-top: 1rem;
-            padding: 1rem;
             border-radius: 4px;
-            display: none;
+        }
+
+        .submit-btn:hover { 
+            background: #12284c; 
+        }
+
+        .submit-btn.danger { 
+            background: var(--danger); 
+        }
+
+        .submit-btn.danger:hover {
+            background: #730000;
+        }
+
+        /* Antispam ochrana: Neviditelné pole pro roboty */
+        .hidden-field { 
+            display: none !important; 
+        }
+
+        /* Status zprávy */
+        .status-msg { 
+            margin-top: 20px; 
+            padding: 12px; 
+            border-radius: 4px; 
+            text-align: center; 
             font-weight: bold;
-            text-align: center;
+            display: none; 
         }
 
-        .status-success {
-            background-color: #d4edda;
-            color: #155724;
-            display: block;
-        }
-
-        .status-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            display: block;
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">LSPD PORTÁL</div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-target="home">Úvodní informace</button>
+                <button class="nav-btn" data-target="academy">Nábor do Akademie</button>
+                <button class="nav-btn" data-target="complaint">Podat stížnost</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-banner">
         <h1>Los Santos Police Department</h1>
         <p>To Protect and to Serve</p>
     </header>
 
     <div class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('academy')">Přihláška do Akademie</button>
-            <button class="tab-btn" onclick="switchTab('complaint')">Podat stížnost</button>
-        </div>
-
-        <section id="academy-section" class="form-section active">
-            <h2>Nábor do LSPD Academy</h2>
-            <form id="academy-form">
-                <div class="hidden-field">
-                    <label>Nevyplňujte toto pole pokud jste člověk:</label>
-                    <input type="text" name="honeypot" id="academy-honeypot">
+        
+        <section id="home-section" class="content-section active">
+            <h2>Vítejte na oficiálním portálu LSPD</h2>
+            <p>Tento portál slouží občanům státu San Andreas pro komunikaci s personálním oddělením a oddělením vnitřních záležitostí.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Naše mise</h3>
+                    <p>Posláním LSPD je chránit životy, majetek a práva všech obyvatel Los Santos, potírat kriminalitu a zajišťovat bezpečné prostředí pro život.</p>
                 </div>
+                <div class="info-card">
+                    <h3>Naše hodnoty</h3>
+                    <p>Profesionalita, čest, integrita a odvaha. Každý důstojník reprezentuje zákon a jedná s nejvyšším možným respektem k občanům.</p>
+                </div>
+            </div>
+
+            <div class="info-text-block">
+                <h3>Vzkaz vedení policie</h3>
+                <p>Zde si přepiš text podle sebe. Například: "Hledáme odhodlané lidi, kteří se nebojí postavit zločinu. Pokud máte čistý trestní rejstřík a chuť pomáhat městu, klikněte nahoře na Nábor do Akademie. V případě, že máte podezření na protiprávní jednání našich příslušníků, využijte sekci pro stížnosti."</p>
+            </div>
+        </section>
+
+        <section id="academy-section" class="content-section">
+            <h2>Přihláška do LSPD Academy</h2>
+            <p class="section-desc">Vyplňte pečlivě všechny body. Vaše přihláška bude vyhodnocena náborovým týmem.</p>
+            
+            <form id="academy-form" class="lspd-form">
+                <div class="hidden-field"><input type="text" id="academy-honeypot" autocomplete="off"></div>
 
                 <div class="form-group">
                     <label for="acad-name">Jméno a Příjmení (IC):</label>
-                    <input type="text" id="acad-name" required placeholder="John Doe">
+                    <input type="text" id="acad-name" required placeholder="např. Michael De Santa">
                 </div>
                 <div class="form-group">
                     <label for="acad-age">Věk (IC / OOC):</label>
-                    <input type="text" id="acad-age" required placeholder="25 / 18">
+                    <input type="text" id="acad-age" required placeholder="např. 30 / 19">
                 </div>
                 <div class="form-group">
                     <label for="acad-discord">Discord (Uživatelské jméno):</label>
-                    <input type="text" id="acad-discord" required placeholder="johndoe#0000 nebo johndoe">
+                    <input type="text" id="acad-discord" required placeholder="např. michael_desanta">
                 </div>
                 <div class="form-group">
-                    <label for="acad-reason">Proč se chcete přidat k LSPD? (Motivace):</label>
-                    <textarea id="acad-reason" required placeholder="Rozepište se..."></textarea>
+                    <label for="acad-reason">Proč se chcete přidat a co můžete LSPD nabídnout?</label>
+                    <textarea id="acad-reason" required placeholder="Rozepište se o své motivaci..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="acad-experience">Máte předchozí zkušenosti u složek? (Pokud ano, jaké):</label>
-                    <textarea id="acad-experience" placeholder="Zkušenosti u EMS, LSPD na jiném serveru atd..."></textarea>
-                </div>
-                <button type="submit">Odeslat přihlášku</button>
+                
+                <button type="submit" class="submit-btn">Odeslat přihlášku</button>
                 <div id="academy-status" class="status-msg"></div>
             </form>
         </section>
 
-        <section id="complaint-section" class="form-section">
-            <h2>Podání stížnosti na příslušníka / incident</h2>
-            <form id="complaint-form">
-                <div class="hidden-field">
-                    <label>Nevyplňujte toto pole pokud jste člověk:</label>
-                    <input type="text" name="honeypot" id="complaint-honeypot">
-                </div>
+        <section id="complaint-section" class="content-section">
+            <h2>Podání stížnosti na příslušníka</h2>
+            <p class="section-desc">Vaše stížnost bude předána Oddělení vnitřních záležitostí (IAD) k prošetření.</p>
+            
+            <form id="complaint-form" class="lspd-form">
+                <div class="hidden-field"><input type="text" id="complaint-honeypot" autocomplete="off"></div>
 
                 <div class="form-group">
                     <label for="comp-name">Vaše Jméno a Příjmení (IC):</label>
-                    <input type="text" id="comp-name" required placeholder="Anonymní nebo Vaše jméno">
+                    <input type="text" id="comp-name" required placeholder="Můžete uvést i Anonymní">
                 </div>
                 <div class="form-group">
-                    <label for="comp-officer">Jméno / Badge number policisty (pokud víte):</label>
-                    <input type="text" id="comp-officer" placeholder="např. Officer Smith nebo neznámý">
+                    <label for="comp-officer">Jméno nebo Badge Number policisty:</label>
+                    <input type="text" id="comp-officer" placeholder="Pokud nevíte, napište neznámé">
                 </div>
                 <div class="form-group">
-                    <label for="comp-discord">Váš Discord (volitelné):</label>
-                    <input type="text" id="comp-discord" placeholder="Pro případné kontaktování">
+                    <label for="comp-description">Detailní popis incidentu:</label>
+                    <textarea id="comp-description" required placeholder="Co přesně se stalo, kdy a kde..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="comp-description">Popis incidentu:</label>
-                    <textarea id="comp-description" required placeholder="Detailně popište, co se stalo..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="comp-evidence">Důkazní materiál (Odkaz na video/foto):</label>
+                    <label for="comp-evidence">Důkazní materiál (Odkaz na video / foto):</label>
                     <input type="text" id="comp-evidence" placeholder="https://youtube.com/... nebo https://imgur.com/...">
                 </div>
-                <button type="submit">Odeslat stížnost</button>
+                
+                <button type="submit" class="submit-btn danger">Odeslat stížnost k prošetření</button>
                 <div id="complaint-status" class="status-msg"></div>
             </form>
         </section>
+
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // === KONFIGURACE WEBHOOKU ===
+        // SEM VLOŽ SVŮJ DISCORD WEBHOOK URL MEZI UVOZOVKY!
+        const WEBHOOK_URL = "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL"; 
+
+        // === KÓD PRO PŘEPÍNÁNÍ STRÁNEK ===
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                
+                // Přepnutí aktivního vzhledu tlačítek
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Skrytí všech sekcí a zobrazení té správné
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`${target}-section`).classList.add('active');
+                
+                // Jemné odrolování pod banner pro lepší čitelnost na mobilech
+                window.scrollTo({ top: 160, behavior: 'smooth' });
+            });
+        });
+
+        // === POMOCNÉ FUNKCE (Ochrana a zprávy) ===
+        function showStatus(elementId, text, isSuccess) {
+            const statusDiv = document.getElementById(elementId);
+            statusDiv.innerText = text;
+            statusDiv.style.display = 'block';
+            statusDiv.style.backgroundColor = isSuccess ? '#d4edda' : '#f8d7da';
+            statusDiv.style.color = isSuccess ? '#155724' : '#721c24';
+        }
+
+        // Kontrola SPAMU - Uživatel může poslat formulář 1x za 5 minut
+        function isSpamming(type) {
+            const lastSubmit = localStorage.getItem(`lspd_cooldown_${type}`);
+            if (lastSubmit && (Date.now() - parseInt(lastSubmit) < 300000)) {
+                return true; // Je v cooldownu
+            }
+            return false;
+        }
+
+        // === SPRACOVÁNÍ: NÁBOR DO AKADEMIE ===
+        document.getElementById('academy-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Honeypot ochrana - pokud skryté pole vyplnil bot, kód nepokračuje
+            if (document.getElementById('academy-honeypot').value !== "") return;
+
+            // Spam ochrana
+            if (isSpamming('acad')) {
+                showStatus('academy-status', "Můžete odeslat pouze jednu přihlášku každých 5 minut.", false);
+                return;
+            }
+
+            const payload = {
+                embeds: [{
+                    title: "🔵 NOVÁ PŘIHLÁŠKA DO LSPD AKADEMIE",
+                    color: 65840, // Modrá barva embedu
+                    fields: [
+                        { name: "Jméno a Příjmení (IC)", value: document.getElementById('acad-name').value, inline: true },
+                        { name: "Věk (IC/OOC)", value: document.getElementById('acad-age').value, inline: true },
+                        { name: "Discord kontakt", value: document.getElementById('acad-discord').value, inline: true },
+                        { name: "Motivace a informace", value: document.getElementById('acad-reason').value }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            await sendToDiscord(payload, 'academy-status', 'acad', this);
+        });
+
+        // === SPRACOVÁNÍ: STÍŽNOSTI ===
+        document.getElementById('complaint-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Honeypot ochrana
+            if (document.getElementById('complaint-honeypot').value !== "") return;
+
+            // Spam ochrana
+            if (isSpamming('comp')) {
+                showStatus('complaint-status', "Můžete podat pouze jednu stížnost každých 5 minut.", false);
+                return;
+            }
+
+            const payload = {
+                embeds: [{
+                    title: "🔴 NOVÁ STÍŽNOST NA POLICISTU",
+                    color: 10027008, // Červená barva embedu
+                    fields: [
+                        { name: "Stěžovatel (IC)", value: document.getElementById('comp-name').value, inline: true },
+                        { name: "Obviněný policista", value: document.getElementById('comp-officer').value || "Neuvedeno", inline: true },
+                        { name: "Popis situace", value: document.getElementById('comp-description').value },
+                        { name: "Důkazní materiál", value: document.getElementById('comp-evidence').value || "Žádné důkazy nebyly přiloženy." }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            await sendToDiscord(payload, 'complaint-status', 'comp', this);
+        });
+
+        // Odesílací funkce
+        async function sendToDiscord(payload, statusId, type, formElement) {
+            if (WEBHOOK_URL === "SEM_VLOZ_SVOJ_DISCORD_WEBHOOK_URL") {
+                showStatus(statusId, "Systémová chyba: Administrátor nenastavil Discord Webhook v kódu.", false);
+                return;
+            }
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showStatus(statusId, "Záznam byl úspěšně odeslán do databáze LSPD!", true);
+                    localStorage.setItem(`lspd_cooldown_${type}`, Date.now().toString()); // Uloží čas odeslání
+                    formElement.reset(); // Vyčistí formulář
+                } else {
+                    showStatus(statusId, "Nepodařilo se navázat spojení s Discordem. Zkontrolujte kód.", false);
+                }
+            } catch (error) {
+                showStatus(statusId, "Chyba sítě. Zkuste to prosím za okamžik.", false);
+            }
+        }
+    </script>
 </body>
 </html>
