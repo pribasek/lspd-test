@@ -66,6 +66,7 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-item {
@@ -75,17 +76,24 @@
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 30px 25px;
+            padding: 30px 20px;
             display: block;
             font-weight: bold;
             font-size: 0.95rem;
             text-transform: uppercase;
             transition: background 0.3s, color 0.3s;
             letter-spacing: 0.5px;
+            cursor: pointer;
         }
 
         .nav-link:hover {
             background-color: #1e293b;
+            color: #d4af37;
+        }
+
+        /* Speciální styl pro ikonu domečku */
+        .home-icon {
+            font-size: 1.2rem;
             color: #d4af37;
         }
 
@@ -145,7 +153,7 @@
 
         .fa-user-shield { color: #2563eb !important; }
 
-        /* OBSAHOVÉ STRÁNKY (Zatím skryté kromě domovské) */
+        /* OBSAHOVÉ STRÁNKY */
         .page-section {
             display: none;
             max-width: 1200px;
@@ -247,6 +255,8 @@
         }
 
         .btn:hover { background: #1e293b; color: #d4af37; }
+        .btn-danger { background: #991b1b; }
+        .btn-danger:hover { background: #7f1d1d; color: #fff; }
 
         /* FORMULÁŘE */
         .form-container {
@@ -296,7 +306,11 @@
             <nav>
                 <ul class="nav-links">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="showPage('home')">Your LSPD</a>
+                        <a class="nav-link home-icon" onclick="showPage('home')" title="Hlavní stránka"><i class="fa-solid fa-house-chimney"></i></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('home')">Your LSPD</a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 <a href="#" onclick="showPage('stations')"><i class="fa-solid fa-magnifying-glass"></i> Find Your Police Station</a>
@@ -311,12 +325,16 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="showPage('about')">About LSPD</a>
+                        <a class="nav-link">About LSPD</a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item"><a href="#" onclick="showPage('operations')">Office Of Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('special')">Office Of Special Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('support')">Office Of Support Services</a></li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('complaints')">Complaints</a>
                     </li>
                 </ul>
             </nav>
@@ -370,10 +388,8 @@
             <h2 class="section-title">Přihláška do Police Academy</h2>
             <form id="academyForm" onsubmit="sendWebhook(event, 'Academy')">
                 <div class="hidden-field">
-                    <label>Nevyplňujte toto pole, pokud jste člověk:</label>
-                    <input type="text" name="bot_check" id="academy_bot">
+                    <input type="text" id="academy_bot">
                 </div>
-
                 <div class="form-group">
                     <label>Jméno a Příjmení (In-Character):</label>
                     <input type="text" id="academy_name" required placeholder="John Doe">
@@ -396,10 +412,8 @@
             <h2 class="section-title">Přihláška do PCD Programu</h2>
             <form id="pcdForm" onsubmit="sendWebhook(event, 'PCD')">
                 <div class="hidden-field">
-                    <label>Nevyplňujte toto pole, pokud jste člověk:</label>
-                    <input type="text" name="bot_check" id="pcd_bot">
+                    <input type="text" id="pcd_bot">
                 </div>
-
                 <div class="form-group">
                     <label>Jméno a Příjmení (In-Character):</label>
                     <input type="text" id="pcd_name" required placeholder="Jane Doe">
@@ -417,23 +431,54 @@
         </div>
     </div>
 
+    <div id="page-complaints" class="page-section">
+        <div class="form-container">
+            <h2 class="section-title" style="border-left-color: #991b1b;">Oficiální podání stížnosti</h2>
+            <p style="margin-bottom: 20px; color: #666;">Zde můžete nahlásit protiprávní jednání, zneužití pravomoci nebo nevhodné chování důstojníků LSPD.</p>
+            
+            <form id="complaintForm" onsubmit="sendWebhook(event, 'Complaint')">
+                <div class="hidden-field">
+                    <input type="text" id="complaint_bot">
+                </div>
+
+                <div class="form-group">
+                    <label>Vaše Jméno a Příjmení (In-Character):</label>
+                    <input type="text" id="complaint_user_name" required placeholder="Frank Tenpenny">
+                </div>
+                <div class="form-group">
+                    <label>Vaše telefonní číslo / kontakt:</label>
+                    <input type="text" id="complaint_user_contact" required placeholder="555-XXXX">
+                </div>
+                <div class="form-group">
+                    <label>Číslo odznaku nebo Jméno důstojníka (na koho stížnost míří):</label>
+                    <input type="text" id="complaint_officer" required placeholder="Např. Odznak #104 / Důstojník Smith">
+                </div>
+                <div class="form-group">
+                    <label>Podrobný popis situace a chování důstojníka:</label>
+                    <textarea id="complaint_text" rows="6" required placeholder="Popište co nejpřesněji celý incident, čas a místo..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger">Odeslat oficiální stížnost</button>
+            </form>
+        </div>
+    </div>
+
     <div id="page-inside" class="page-section"><h2 class="section-title">Inside the LSPD</h2><p>Obsah se připravuje...</p></div>
-    <div id="page-about" class="page-section"><h2 class="section-title">About LSPD</h2><p>Obsah se připravuje...</p></div>
     <div id="page-operations" class="page-section"><h2 class="section-title">Office Of Operations</h2><p>Obsah se připravuje...</p></div>
     <div id="page-special" class="page-section"><h2 class="section-title">Office Of Special Operations</h2><p>Obsah se připravuje...</p></div>
     <div id="page-support" class="page-section"><h2 class="section-title">Office Of Support Services</h2><p>Obsah se připravuje...</p></div>
 
     <script>
-        // Kofigurace tvého Discord Webhooku (Sem vlož odkaz z tvého Discordu)
-        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1513473195217387521/PEWyWh9OSY2bYsf1dvRdeRuLO2FyJ7A6bbDny7pRb_kfU2mBOsNaSunHXo24xg4QwQEy';
+        // --- KONFIGURACE DISCORD WEBHOOKŮ ---
+        // Vlož sem příslušné URL adresy z tvého Discordu
+        const WEBHOOK_ACADEMY   = 'https://discord.com/api/webhooks/1513473195217387521/PEWyWh9OSY2bYsf1dvRdeRuLO2FyJ7A6bbDny7pRb_kfU2mBOsNaSunHXo24xg4QwQEy';
+        const WEBHOOK_PCD       = 'https://discord.com/api/webhooks/1513474036351631564/klfGSWqqUmTxiaEhpif_U3Clfkp0Y9I9Mr4CepT-o4QKxkfCuwTcc2orTG_jSfWHWnWl';
+        const WEBHOOK_COMPLAINT = 'https://discord.com/api/webhooks/1513474838533242931/-2RO_Bp_pjr6_6nlABuZpmW9YkfSj-W7qmdrz8wwPB3UnBLzdIbDlF7tO667eJDfaUPR';
 
-        // Funkce pro přepínání sekcí/stránek bez zbytečného načítání
+        // Funkce pro přepínání sekcí/stránek
         function showPage(pageId) {
-            // Skryje všechny sekce
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active'));
             
-            // Ukáže zvolenou sekci
             const activeSection = document.getElementById('page-' + pageId);
             if(activeSection) {
                 activeSection.classList.add('active');
@@ -442,78 +487,101 @@
         }
 
         // --- ANTI-SPAM OCHRANA ---
-        // 1. Ochrana pomocí Cooldownu (Uživatel může odeslat formulář max jednou za 60 sekund)
         let lastSubmitTime = 0;
 
         async function sendWebhook(event, formType) {
             event.preventDefault();
 
-            // Kontrola Cooldownu (Prevence zahlcení webhooku jedním uživatelem)
+            // 1. Kontrola Cooldownu (Max 1 formulář za 60 sekund)
             const currentTime = Date.now();
             if (currentTime - lastSubmitTime < 60000) { 
                 alert('Odesíláte data příliš rychle! Počkejte prosím minutu.');
                 return;
             }
 
-            // 2. Honeypot kontrola (Pokud robot vyplní skryté pole, formulář se tváří jako odeslaný, ale nic neodejde)
-            const botCheckAcademy = document.getElementById('academy_bot').value;
-            const botCheckPcd = document.getElementById('pcd_bot').value;
-            if (botCheckAcademy !== "" || botCheckPcd !== "") {
-                alert('Přihláška byla úspěšně zpracována (Bot Filtered).');
+            // 2. Honeypot kontrola proti spambotům
+            const botAcademy = document.getElementById('academy_bot').value;
+            const botPcd = document.getElementById('pcd_bot').value;
+            const botComplaint = document.getElementById('complaint_bot').value;
+            if (botAcademy !== "" || botPcd !== "" || botComplaint !== "") {
+                alert('Formulář byl úspěšně zpracován.');
                 return; 
             }
 
-            // Sběr dat podle typu formuláře
+            let targetWebhook = '';
             let embedData = {};
+
+            // Roztřídění dat a webhooků podle formuláře
             if (formType === 'Academy') {
+                targetWebhook = WEBHOOK_ACADEMY;
                 const name = document.getElementById('academy_name').value;
                 const discord = document.getElementById('academy_discord').value;
                 const reason = document.getElementById('academy_reason').value;
 
                 embedData = {
                     title: "🚨 Nová přihláška: Los Santos Police Academy",
-                    color: 48616, // Policejní modrá
+                    color: 3447003, // Modrá
                     fields: [
                         { name: "Jméno (IC)", value: name, inline: true },
                         { name: "Discord", value: discord, inline: true },
                         { name: "Důvod přihlášení", value: reason }
                     ]
                 };
-            } else if (formType === 'PCD') {
+            } 
+            else if (formType === 'PCD') {
+                targetWebhook = WEBHOOK_PCD;
                 const name = document.getElementById('pcd_name').value;
                 const discord = document.getElementById('pcd_discord').value;
                 const experience = document.getElementById('pcd_experience').value;
 
                 embedData = {
                     title: "ℹ️ Nová přihláška: PCD Program",
-                    color: 13868841, // Zlatá/Žlutá
+                    color: 15105570, // Oranžová/Zlatá
                     fields: [
                         { name: "Jméno (IC)", value: name, inline: true },
                         { name: "Discord", value: discord, inline: true },
                         { name: "Zkušenosti", value: experience }
                     ]
                 };
+            } 
+            else if (formType === 'Complaint') {
+                targetWebhook = WEBHOOK_COMPLAINT;
+                const userName = document.getElementById('complaint_user_name').value;
+                const userContact = document.getElementById('complaint_user_contact').value;
+                const officer = document.getElementById('complaint_officer').value;
+                const text = document.getElementById('complaint_text').value;
+
+                embedData = {
+                    title: "❌ PODÁNA OFICIÁLNÍ STÍŽNOST NA POLICISTU",
+                    color: 15158332, // Červená
+                    fields: [
+                        { name: "Stěžovatel (IC)", value: userName, inline: true },
+                        { name: "Kontakt", value: userContact, inline: true },
+                        { name: "Nahlášený důstojník / Odznak", value: officer },
+                        { name: "Popis incidentu", value: text }
+                    ]
+                };
             }
 
-            // Odeslání dat na Discord přes Fetch API
+            // Odeslání na vybraný Discord Webhook
             try {
-                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                const response = await fetch(targetWebhook, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        username: "LSPD Náborový Systém",
-                        avatar_url: "https://i.imgur.com/vIunE9X.png", // Můžeš změnit za vlastní logo
+                        username: "LSPD Interní Systém",
+                        avatar_url: "https://i.imgur.com/vIunE9X.png",
                         embeds: [embedData]
                     })
                 });
 
                 if (response.ok) {
-                    alert('Přihláška byla úspěšně odeslána na Discord server!');
-                    lastSubmitTime = Date.now(); // Aktualizace času posledního odeslání
-                    event.target.reset(); // Promazání polí formuláře
-                    showPage('home'); // Návrat na hlavní stránku
+                    alert('Formulář byl úspěšně odeslán!');
+                    lastSubmitTime = Date.now();
+                    event.target.reset(); // Promazání polí
+                    showPage('home'); // Zpět na hlavní stránku
                 } else {
-                    alert('Chyba při odesílání. Zkontrolujte nastavení Webhooku.');
+                    alert('Chyba při odesílání. Zkontrolujte správnost URL webhooku.');
                 }
             } catch (error) {
                 console.error('Error:', error);
