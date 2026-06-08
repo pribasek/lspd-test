@@ -350,6 +350,29 @@
         .hidden-field {
             display: none !important;
         }
+
+        /* Podmenu v rámci sekce Inside the LSPD */
+        .sub-navigation {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .sub-navigation a {
+            color: #0b1a30;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 5px;
+            transition: all 0.2s;
+        }
+        .sub-navigation a:hover {
+            color: #d4af37;
+            border-bottom-color: #d4af37;
+        }
     </style>
 </head>
 <body>
@@ -389,8 +412,6 @@
                             <li class="dropdown-item"><a href="#" onclick="showPage('operations')">Office Of Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('special')">Office Of Special Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('support')">Office Of Support Services</a></li>
-                            <!-- Nově přidaná položka Organization Chart -->
-                            <li class="dropdown-item"><a href="#" onclick="showPage('chart')"><i class="fa-solid fa-sitemap" style="font-size: 0.95rem; color: #333;"></i> Organization Chart</a></li>
                         </ul>
                     </li>
 
@@ -404,7 +425,6 @@
         </div>
     </header>
 
-    <!-- STRÁNKA: DOMŮ (S moderní LAPD / FiveM tématikou) -->
     <div id="page-home" class="page-section active">
         <section class="hero">
             <div class="hero-content">
@@ -413,48 +433,56 @@
             </div>
         </section>
 
-        <!-- Elegantní informačně-obrázková sekce po vzoru reálné LAPD -->
         <div class="home-grid">
             <div class="home-card">
-                <img src="file:///C:/Users/David/Desktop/IMG_7920.png" alt="LSPD Patrol">
+                <img src="IMG_7920.png" alt="LSPD Patrol">
                 <div class="home-card-content">
                     <h3>Patrol Division</h3>
                     <p>Zajišťujeme nepřetržitou bezpečnost v ulicích Los Santos. Naše hlídky reagují na tísňová volání občanů s maximálním nasazením 24 hodin denně, 7 dní v týdnu.</p>
                 </div>
             </div>
             <div class="home-card">
-                <img src="file:///C:/Users/David/Desktop/IMG_7926.png" alt="LSPD Air Support">
+                <img src="IMG_7926.png" alt="LSPD Air Support">
                 <div class="home-card-content">
                     <h3>Air Support Division</h3>
                     <p>Využíváme nejmodernější taktické postupy a leteckou podporu pro monitorování vysoce rizikových situací a rychlou koordinaci pozemních jednotek v terénu.</p>
                 </div>
             </div>
             <div class="home-card">
-                <img src="file:///C:/Users/David/Desktop/IMG_7916.png" alt="LSPD Metro">
+                <img src="IMG_7916.png" alt="LSPD Metro">
                 <div class="home-card-content">
                     <h3>Metropolitan Division</h3>
-                    <p>Jdou tam, odkud ostatní utíkají. Specializují se na zásahy proti únosům, teroristickým hrozbám  a dalším nebezpečným situacím.</p>
+                    <p>Jdou tam, odkud ostatní utíkají. Specializují se na zásahy proti únosům, teroristickým hrozbám a dalším nebezpečným situacím.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- STRÁNKA: ORGANIZATION CHART -->
+    <div id="page-inside" class="page-section">
+        <h2 class="section-title">Inside the LSPD</h2>
+        <div class="sub-navigation">
+            <a href="#" onclick="showPage('chart')"><i class="fa-solid fa-sitemap"></i> Zobrazit Organization Chart</a>
+        </div>
+        <div class="station-card">
+            <h3>Interní struktury sboru</h3>
+            <p>Nahlédněte pod pokličku jednoho z největších policejních sborů v San Andreas. Sekce Inside the LSPD slouží k prezentaci vnitřních divizí, plánů sboru a struktury velení veřejnosti.</p>
+        </div>
+    </div>
+
     <div id="page-chart" class="page-section">
         <h2 class="section-title">Organization Chart</h2>
         <div class="station-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
             <p style="color: #666; margin-bottom: 20px;">Struktura velení a organizační schéma Los Santos Police Department.</p>
-            <!-- Zde bude v budoucnu grafika/tabulka struktury, prozatím placeholder -->
             <div style="background: #0b1a30; color: #fff; padding: 15px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;">Office of the Chief of Police</div>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                 <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Operations</div>
                 <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Special Operations</div>
                 <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Support Services</div>
             </div>
+            <button class="btn" style="margin-top: 25px;" onclick="showPage('inside')"><i class="fa-solid fa-arrow-left"></i> Zpět na Inside LSPD</button>
         </div>
     </div>
 
-    <!-- STRÁNKA: FIND YOUR POLICE STATION -->
     <div id="page-stations" class="page-section">
         <h2 class="section-title">Find Your Police Station</h2>
         <div class="station-grid">
@@ -469,7 +497,6 @@
         </div>
     </div>
 
-    <!-- STRÁNKA: JOIN LSPD (Výběr přihlášek) -->
     <div id="page-join" class="page-section">
         <h2 class="section-title">Náborové programy LSPD</h2>
         <p>Vyberte si kariérní cestu v našem sboru. Kliknutím na program přejdete k formuláři.</p>
@@ -487,14 +514,11 @@
         </div>
     </div>
 
-    <!-- FORMULÁŘ: POLICE ACADEMY -->
     <div id="page-form-academy" class="page-section">
         <div class="form-container">
             <h2 class="section-title">Přihláška do Police Academy</h2>
             <form id="academyForm" onsubmit="sendWebhook(event, 'Academy')">
-                <div class="hidden-field">
-                    <input type="text" id="academy_bot">
-                </div>
+                <div class="hidden-field"><input type="text" id="academy_bot"></div>
                 <div class="form-group">
                     <label>Jméno a Příjmení (In-Character):</label>
                     <input type="text" id="academy_name" required placeholder="John Doe">
@@ -512,14 +536,11 @@
         </div>
     </div>
 
-    <!-- FORMULÁŘ: PCD PROGRAM -->
     <div id="page-form-pcd" class="page-section">
         <div class="form-container">
             <h2 class="section-title">Přihláška do PCD Programu</h2>
             <form id="pcdForm" onsubmit="sendWebhook(event, 'PCD')">
-                <div class="hidden-field">
-                    <input type="text" id="pcd_bot">
-                </div>
+                <div class="hidden-field"><input type="text" id="pcd_bot"></div>
                 <div class="form-group">
                     <label>Jméno a Příjmení (In-Character):</label>
                     <input type="text" id="pcd_name" required placeholder="Jane Doe">
@@ -537,17 +558,11 @@
         </div>
     </div>
 
-    <!-- STRÁNKA / FORMULÁŘ: COMPLAINTS (Stížnosti) -->
     <div id="page-complaints" class="page-section">
         <div class="form-container">
             <h2 class="section-title" style="border-left-color: #991b1b;">Oficiální podání stížnosti</h2>
-            <p style="margin-bottom: 20px; color: #666;">Zde můžete nahlásit protiprávní jednání, zneužití pravomoci nebo nevhodné chování důstojníků LSPD.</p>
-            
             <form id="complaintForm" onsubmit="sendWebhook(event, 'Complaint')">
-                <div class="hidden-field">
-                    <input type="text" id="complaint_bot">
-                </div>
-
+                <div class="hidden-field"><input type="text" id="complaint_bot"></div>
                 <div class="form-group">
                     <label>Vaše Jméno a Příjmení (In-Character):</label>
                     <input type="text" id="complaint_user_name" required placeholder="Frank Tenpenny">
@@ -557,20 +572,18 @@
                     <input type="text" id="complaint_user_contact" required placeholder="555-XXXX">
                 </div>
                 <div class="form-group">
-                    <label>Číslo odznaku nebo Jméno důstojníka (na koho stížnost míří):</label>
-                    <input type="text" id="complaint_officer" required placeholder="Např. Odznak #104 / Důstojník Smith">
+                    <label>Číslo odznaku nebo Jméno důstojníka:</label>
+                    <input type="text" id="complaint_officer" required placeholder="Např. Odznak #104">
                 </div>
                 <div class="form-group">
-                    <label>Podrobný popis situace a chování důstojníka:</label>
-                    <textarea id="complaint_text" rows="6" required placeholder="Popište co nejpřesněji celý incident, čas a místo..."></textarea>
+                    <label>Podrobný popis situace:</label>
+                    <textarea id="complaint_text" rows="6" required placeholder="Popište co nejpřesněji celý incident..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-danger">Odeslat oficiální stížnost</button>
             </form>
         </div>
     </div>
 
-    <!-- DOČASNÉ STRÁNKY -->
-    <div id="page-inside" class="page-section"><h2 class="section-title">Inside the LSPD</h2><p>Obsah se připravuje...</p></div>
     <div id="page-operations" class="page-section"><h2 class="section-title">Office Of Operations</h2><p>Obsah se připravuje...</p></div>
     <div id="page-special" class="page-section"><h2 class="section-title">Office Of Special Operations</h2><p>Obsah se připravuje...</p></div>
     <div id="page-support" class="page-section"><h2 class="section-title">Office Of Support Services</h2><p>Obsah se připravuje...</p></div>
@@ -581,7 +594,6 @@
         const WEBHOOK_PCD       = 'https://discord.com/api/webhooks/1513474036351631564/klfGSWqqUmTxiaEhpif_U3Clfkp0Y9I9Mr4CepT-o4QKxkfCuwTcc2orTG_jSfWHWnWl';
         const WEBHOOK_COMPLAINT = 'https://discord.com/api/webhooks/1513474838533242931/-2RO_Bp_pjr6_6nlABuZpmW9YkfSj-W7qmdrz8wwPB3UnBLzdIbDlF7tO667eJDfaUPR';
 
-        // Funkce pro přepínání sekcí/stránek
         function showPage(pageId) {
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active'));
@@ -593,12 +605,9 @@
             }
         }
 
-        // --- ANTI-SPAM OCHRANA ---
         let lastSubmitTime = 0;
-
         async function sendWebhook(event, formType) {
             event.preventDefault();
-
             const currentTime = Date.now();
             if (currentTime - lastSubmitTime < 60000) { 
                 alert('Odesíláte data příliš rychle! Počkejte prosím minutu.');
@@ -618,51 +627,38 @@
 
             if (formType === 'Academy') {
                 targetWebhook = WEBHOOK_ACADEMY;
-                const name = document.getElementById('academy_name').value;
-                const discord = document.getElementById('academy_discord').value;
-                const reason = document.getElementById('academy_reason').value;
-
                 embedData = {
                     title: "🚨 Nová přihláška: Los Santos Police Academy",
                     color: 3447003,
                     fields: [
-                        { name: "Jméno (IC)", value: name, inline: true },
-                        { name: "Discord", value: discord, inline: true },
-                        { name: "Důvod přihlášení", value: reason }
+                        { name: "Jméno (IC)", value: document.getElementById('academy_name').value, inline: true },
+                        { name: "Discord", value: document.getElementById('academy_discord').value, inline: true },
+                        { name: "Důvod přihlášení", value: document.getElementById('academy_reason').value }
                     ]
                 };
             } 
             else if (formType === 'PCD') {
                 targetWebhook = WEBHOOK_PCD;
-                const name = document.getElementById('pcd_name').value;
-                const discord = document.getElementById('pcd_discord').value;
-                const experience = document.getElementById('pcd_experience').value;
-
                 embedData = {
                     title: "ℹ️ Nová přihláška: PCD Program",
                     color: 15105570,
                     fields: [
-                        { name: "Jméno (IC)", value: name, inline: true },
-                        { name: "Discord", value: discord, inline: true },
-                        { name: "Zkušenosti", value: experience }
+                        { name: "Jméno (IC)", value: document.getElementById('pcd_name').value, inline: true },
+                        { name: "Discord", value: document.getElementById('pcd_discord').value, inline: true },
+                        { name: "Zkušenosti", value: document.getElementById('pcd_experience').value }
                     ]
                 };
             } 
             else if (formType === 'Complaint') {
                 targetWebhook = WEBHOOK_COMPLAINT;
-                const userName = document.getElementById('complaint_user_name').value;
-                const userContact = document.getElementById('complaint_user_contact').value;
-                const officer = document.getElementById('complaint_officer').value;
-                const text = document.getElementById('complaint_text').value;
-
                 embedData = {
                     title: "❌ PODÁNA OFICIÁLNÍ STÍŽNOST NA POLICISTU",
                     color: 15158332,
                     fields: [
-                        { name: "Stěžovatel (IC)", value: userName, inline: true },
-                        { name: "Kontakt", value: userContact, inline: true },
-                        { name: "Nahlášený důstojník / Odznak", value: officer },
-                        { name: "Popis incidentu", value: text }
+                        { name: "Stěžovatel (IC)", value: document.getElementById('complaint_user_name').value, inline: true },
+                        { name: "Kontakt", value: document.getElementById('complaint_user_contact').value, inline: true },
+                        { name: "Nahlášený důstojník / Odznak", value: document.getElementById('complaint_officer').value },
+                        { name: "Popis incidentu", value: document.getElementById('complaint_text').value }
                     ]
                 };
             }
@@ -673,7 +669,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: "LSPD Interní Systém",
-                        avatar_url: "https://i.imgur.com/vIunE9X.png",
+                        avatar_url: "lspd.png",
                         embeds: [embedData]
                     })
                 });
