@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Los Santos Police Department</title>
-    <!-- Načtení ikon Font Awesome pro custom obrázky v menu -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Základní reset a fonty */
+        /* Základní reset a konfigurace */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +19,7 @@
             color: #333;
         }
 
-        /* Horní lišta / Hlavička */
+        /* HLAVIČKA A NAVIGACE */
         header {
             background-color: #0b1a30; /* Temná policejní modrá */
             border-bottom: 4px solid #d4af37; /* Zlatý detail */
@@ -29,48 +28,39 @@
         }
 
         .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 100%;
+            padding: 0 30px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
+            height: 80px;
         }
 
+        /* Logo text kompletně na levé straně */
         .logo-area {
             display: flex;
             align-items: center;
             color: #fff;
-        }
-
-        .logo-placeholder {
-            width: 50px;
-            height: 50px;
-            background: #d4af37;
-            border-radius: 50%;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #0b1a30;
-            font-size: 1.2rem;
+            white-space: nowrap;
+            flex: 1; /* Tlačí menu do středu */
         }
 
         .logo-text h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 1px;
             text-transform: uppercase;
+            font-weight: 800;
         }
 
-        .logo-text p {
-            font-size: 0.8rem;
-            color: #cbd5e1;
+        .logo-text h1 span {
+            color: #d4af37; /* Zlatý akcent pro "Police Department" */
+            font-weight: 400;
+            margin-left: 8px;
         }
 
-        /* Hlavní Navigace */
+        /* Navigace vycentrovaná uprostřed */
         nav {
             display: flex;
+            justify-content: center;
         }
 
         .nav-links {
@@ -85,12 +75,13 @@
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 20px 25px;
+            padding: 30px 25px;
             display: block;
             font-weight: bold;
             font-size: 0.95rem;
             text-transform: uppercase;
             transition: background 0.3s, color 0.3s;
+            letter-spacing: 0.5px;
         }
 
         .nav-link:hover {
@@ -98,18 +89,23 @@
             color: #d4af37;
         }
 
+        /* Pravá prázdná strana pro dokonalé vycentrování menu */
+        .header-spacer {
+            flex: 1;
+        }
+
         /* Dropdown Menu (Rozbalovací nabídka) */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
             background-color: #ffffff;
             min-width: 280px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.15);
             list-style: none;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px);
             transition: all 0.3s ease;
             border-top: 3px solid #d4af37;
         }
@@ -117,27 +113,28 @@
         .nav-item:hover .dropdown-menu {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
 
         .dropdown-item a {
             color: #333;
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
             font-size: 0.9rem;
             border-bottom: 1px solid #f1f5f9;
             transition: background 0.2s, color 0.2s;
+            text-transform: none;
+            font-weight: 600;
         }
 
         .dropdown-item a:hover {
             background-color: #f8fafc;
             color: #0b1a30;
-            padding-left: 25px; /* Jemný efekt posunutí při najetí */
+            padding-left: 25px;
         }
 
-        /* Ikony v menu */
         .dropdown-item i {
             margin-right: 12px;
             color: #0b1a30;
@@ -146,33 +143,143 @@
             text-align: center;
         }
 
-        /* Ikona policisty dostane trochu custom "emoji" barvu */
-        .fa-user-shield {
-            color: #2563eb !important;
+        .fa-user-shield { color: #2563eb !important; }
+
+        /* OBSAHOVÉ STRÁNKY (Zatím skryté kromě domovské) */
+        .page-section {
+            display: none;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
         }
 
-        /* Hero sekce (Úvodní baner) */
+        .page-section.active {
+            display: block;
+        }
+
+        /* Stylování podstránek */
         .hero {
-            background: linear-gradient(rgba(11, 26, 48, 0.8), rgba(11, 26, 48, 0.8)), url('https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?q=80&w=1920') no-repeat center center/cover;
+            background: linear-gradient(rgba(11, 26, 48, 0.85), rgba(11, 26, 48, 0.85)), url('https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?q=80&w=1920') no-repeat center center/cover;
             height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
-        .hero-content h2 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .hero h2 { font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; }
+        .hero p { color: #d4af37; font-style: italic; font-size: 1.2rem; margin-top: 10px; }
+
+        h2.section-title {
+            font-size: 2rem;
+            color: #0b1a30;
+            margin-bottom: 20px;
+            border-left: 5px solid #d4af37;
+            padding-left: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #d4af37;
-            font-style: italic;
+        /* Stanice (Cards) */
+        .station-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .station-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 6px;
+            border-top: 4px solid #0b1a30;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .station-card h3 {
+            color: #0b1a30;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* Výběr přihlášek (Join sekce) */
+        .join-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .option-box {
+            background: #fff;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+
+        .option-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .option-box h3 {
+            font-size: 1.6rem;
+            color: #0b1a30;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #0b1a30;
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background: #1e293b; color: #d4af37; }
+
+        /* FORMULÁŘE */
+        .form-container {
+            background: #fff;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* Skrytý honeypot pro ochranu před spamboty */
+        .hidden-field {
+            display: none !important;
         }
     </style>
 </head>
@@ -180,57 +287,239 @@
 
     <header>
         <div class="header-container">
-            <!-- Logo / Název -->
             <div class="logo-area">
-                <div class="logo-placeholder">LSPD</div>
                 <div class="logo-text">
-                    <h1>Los Santos</h1>
-                    <p>Police Department</p>
+                    <h1>Los Santos<span>Police Department</span></h1>
                 </div>
             </div>
 
-            <!-- Navigace -->
             <nav>
                 <ul class="nav-links">
-                    
-                    <!-- Menu: YOUR LSPD -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Your LSPD</a>
+                        <a href="#" class="nav-link" onclick="showPage('home')">Your LSPD</a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
-                                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Find Your Police Station</a>
+                                <a href="#" onclick="showPage('stations')"><i class="fa-solid fa-magnifying-glass"></i> Find Your Police Station</a>
                             </li>
                             <li class="dropdown-item">
-                                <a href="#"><i class="fa-solid fa-circle-info"></i> Inside the LSPD</a>
+                                <a href="#" onclick="showPage('inside')"><i class="fa-solid fa-circle-info"></i> Inside the LSPD</a>
                             </li>
                             <li class="dropdown-item">
-                                <a href="#"><i class="fa-solid fa-user-shield"></i> Join LSPD</a>
+                                <a href="#" onclick="showPage('join')"><i class="fa-solid fa-user-shield"></i> Join LSPD</a>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- Menu: ABOUT LSPD -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">About LSPD</a>
+                        <a href="#" class="nav-link" onclick="showPage('about')">About LSPD</a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item"><a href="#">Office Of Operations</a></li>
-                            <li class="dropdown-item"><a href="#">Office Of Special Operations</a></li>
-                            <li class="dropdown-item"><a href="#">Office Of Support Services</a></li>
+                            <li class="dropdown-item"><a href="#" onclick="showPage('operations')">Office Of Operations</a></li>
+                            <li class="dropdown-item"><a href="#" onclick="showPage('special')">Office Of Special Operations</a></li>
+                            <li class="dropdown-item"><a href="#" onclick="showPage('support')">Office Of Support Services</a></li>
                         </ul>
                     </li>
-
                 </ul>
             </nav>
+
+            <div class="header-spacer"></div>
         </div>
     </header>
 
-    <!-- Dočasný úvodní panel, ať to nevypadá prázdně -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>To Protect and to Serve</h2>
-            <p>Oficiální portál Los Santos Police Department</p>
-        </div>
-    </section>
+    <div id="page-home" class="page-section active">
+        <section class="hero">
+            <div class="hero-content">
+                <h2>To Protect and to Serve</h2>
+                <p>Vítejte na oficiálním portálu Los Santos Police Department</p>
+            </div>
+        </section>
+    </div>
 
+    <div id="page-stations" class="page-section">
+        <h2 class="section-title">Find Your Police Station</h2>
+        <div class="station-grid">
+            <div class="station-card">
+                <h3>Vespucci Station</h3>
+                <p>Hlavní stanice obsluhující plážovou oblast a přilehlé čtvrti Vespucci. Otevřeno 24/7 pro veřejnost.</p>
+            </div>
+            <div class="station-card">
+                <h3>Mission Row Station</h3>
+                <p>Centrální stanice LSPD umístěná v srdci Los Santos. Zajišťuje bezpečnost v downtownu a okolí.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-join" class="page-section">
+        <h2 class="section-title">Náborové programy LSPD</h2>
+        <p>Vyberte si kariérní cestu v našem sboru. Kliknutím na program přejdete k formuláři.</p>
+        <div class="join-options">
+            <div class="option-box">
+                <h3>Los Santos Police Academy</h3>
+                <p>Základní výcvikový program pro nové kadety bez předchozích zkušeností. Staňte se plnohodnotným důstojníkem.</p>
+                <button class="btn" onclick="showPage('form-academy')">Otevřít přihlášku</button>
+            </div>
+            <div class="option-box">
+                <h3>PCD Program</h3>
+                <p>Police Community Officer program zaměřený na civilní složky, podporu komunity a specializované služby.</p>
+                <button class="btn" onclick="showPage('form-pcd')">Otevřít přihlášku</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-form-academy" class="page-section">
+        <div class="form-container">
+            <h2 class="section-title">Přihláška do Police Academy</h2>
+            <form id="academyForm" onsubmit="sendWebhook(event, 'Academy')">
+                <div class="hidden-field">
+                    <label>Nevyplňujte toto pole, pokud jste člověk:</label>
+                    <input type="text" name="bot_check" id="academy_bot">
+                </div>
+
+                <div class="form-group">
+                    <label>Jméno a Příjmení (In-Character):</label>
+                    <input type="text" id="academy_name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Discord ID / Tag:</label>
+                    <input type="text" id="academy_discord" required placeholder="username#0000">
+                </div>
+                <div class="form-group">
+                    <label>Proč se chcete přidat k LSPD?</label>
+                    <textarea id="academy_reason" rows="5" required placeholder="Rozepište se..."></textarea>
+                </div>
+                <button type="submit" class="btn">Odeslat přihlášku</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="page-form-pcd" class="page-section">
+        <div class="form-container">
+            <h2 class="section-title">Přihláška do PCD Programu</h2>
+            <form id="pcdForm" onsubmit="sendWebhook(event, 'PCD')">
+                <div class="hidden-field">
+                    <label>Nevyplňujte toto pole, pokud jste člověk:</label>
+                    <input type="text" name="bot_check" id="pcd_bot">
+                </div>
+
+                <div class="form-group">
+                    <label>Jméno a Příjmení (In-Character):</label>
+                    <input type="text" id="pcd_name" required placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label>Discord ID / Tag:</label>
+                    <input type="text" id="pcd_discord" required placeholder="username#0000">
+                </div>
+                <div class="form-group">
+                    <label>Jaké máte zkušenosti s prací s komunitou?</label>
+                    <textarea id="pcd_experience" rows="5" required placeholder="Vaše zkušenosti..."></textarea>
+                </div>
+                <button type="submit" class="btn">Odeslat přihlášku</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="page-inside" class="page-section"><h2 class="section-title">Inside the LSPD</h2><p>Obsah se připravuje...</p></div>
+    <div id="page-about" class="page-section"><h2 class="section-title">About LSPD</h2><p>Obsah se připravuje...</p></div>
+    <div id="page-operations" class="page-section"><h2 class="section-title">Office Of Operations</h2><p>Obsah se připravuje...</p></div>
+    <div id="page-special" class="page-section"><h2 class="section-title">Office Of Special Operations</h2><p>Obsah se připravuje...</p></div>
+    <div id="page-support" class="page-section"><h2 class="section-title">Office Of Support Services</h2><p>Obsah se připravuje...</p></div>
+
+    <script>
+        // Kofigurace tvého Discord Webhooku (Sem vlož odkaz z tvého Discordu)
+        const DISCORD_WEBHOOK_URL = 'SEM_VLOZ_SVUJ_DISCORD_WEBHOOK_URL';
+
+        // Funkce pro přepínání sekcí/stránek bez zbytečného načítání
+        function showPage(pageId) {
+            // Skryje všechny sekce
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Ukáže zvolenou sekci
+            const activeSection = document.getElementById('page-' + pageId);
+            if(activeSection) {
+                activeSection.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // --- ANTI-SPAM OCHRANA ---
+        // 1. Ochrana pomocí Cooldownu (Uživatel může odeslat formulář max jednou za 60 sekund)
+        let lastSubmitTime = 0;
+
+        async function sendWebhook(event, formType) {
+            event.preventDefault();
+
+            // Kontrola Cooldownu (Prevence zahlcení webhooku jedním uživatelem)
+            const currentTime = Date.now();
+            if (currentTime - lastSubmitTime < 60000) { 
+                alert('Odesíláte data příliš rychle! Počkejte prosím minutu.');
+                return;
+            }
+
+            // 2. Honeypot kontrola (Pokud robot vyplní skryté pole, formulář se tváří jako odeslaný, ale nic neodejde)
+            const botCheckAcademy = document.getElementById('academy_bot').value;
+            const botCheckPcd = document.getElementById('pcd_bot').value;
+            if (botCheckAcademy !== "" || botCheckPcd !== "") {
+                alert('Přihláška byla úspěšně zpracována (Bot Filtered).');
+                return; 
+            }
+
+            // Sběr dat podle typu formuláře
+            let embedData = {};
+            if (formType === 'Academy') {
+                const name = document.getElementById('academy_name').value;
+                const discord = document.getElementById('academy_discord').value;
+                const reason = document.getElementById('academy_reason').value;
+
+                embedData = {
+                    title: "🚨 Nová přihláška: Los Santos Police Academy",
+                    color: 48616, // Policejní modrá
+                    fields: [
+                        { name: "Jméno (IC)", value: name, inline: true },
+                        { name: "Discord", value: discord, inline: true },
+                        { name: "Důvod přihlášení", value: reason }
+                    ]
+                };
+            } else if (formType === 'PCD') {
+                const name = document.getElementById('pcd_name').value;
+                const discord = document.getElementById('pcd_discord').value;
+                const experience = document.getElementById('pcd_experience').value;
+
+                embedData = {
+                    title: "ℹ️ Nová přihláška: PCD Program",
+                    color: 13868841, // Zlatá/Žlutá
+                    fields: [
+                        { name: "Jméno (IC)", value: name, inline: true },
+                        { name: "Discord", value: discord, inline: true },
+                        { name: "Zkušenosti", value: experience }
+                    ]
+                };
+            }
+
+            // Odeslání dat na Discord přes Fetch API
+            try {
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: "LSPD Náborový Systém",
+                        avatar_url: "https://i.imgur.com/vIunE9X.png", // Můžeš změnit za vlastní logo
+                        embeds: [embedData]
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Přihláška byla úspěšně odeslána na Discord server!');
+                    lastSubmitTime = Date.now(); // Aktualizace času posledního odeslání
+                    event.target.reset(); // Promazání polí formuláře
+                    showPage('home'); // Návrat na hlavní stránku
+                } else {
+                    alert('Chyba při odesílání. Zkontrolujte nastavení Webhooku.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Nepodařilo se navázat spojení se serverem.');
+            }
+        }
+    </script>
 </body>
 </html>
