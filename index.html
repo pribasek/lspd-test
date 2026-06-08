@@ -165,22 +165,81 @@
             display: block;
         }
 
-        /* Stylování podstránek */
+        /* MODERNÍ HOME PAGE DESIGN */
         .hero {
-            background: linear-gradient(rgba(11, 26, 48, 0.85), rgba(11, 26, 48, 0.85)), url('https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?q=80&w=1920') no-repeat center center/cover;
-            height: 400px;
+            background: linear-gradient(rgba(11, 26, 48, 0.65), rgba(11, 26, 48, 0.85)), url('https://images.unsplash.com/photo-1563204907-f275cd3b6ec2?q=80&w=1920') no-repeat center center/cover;
+            height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: #fff;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .hero h2 { font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; }
-        .hero p { color: #d4af37; font-style: italic; font-size: 1.2rem; margin-top: 10px; }
+        .hero h2 { 
+            font-size: 2.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        
+        .hero p { 
+            color: #d4af37; 
+            font-size: 1.5rem; 
+            margin-top: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
+        /* Elegantní mřížka s FiveM fotografiemi a informacemi */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .home-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-bottom: 4px solid #0b1a30;
+            transition: transform 0.3s ease;
+        }
+
+        .home-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .home-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .home-card-content {
+            padding: 20px;
+        }
+
+        .home-card-content h3 {
+            color: #0b1a30;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .home-card-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* SPOLEČNÉ ELEMENTY PODSTRÁNEK */
         h2.section-title {
             font-size: 2rem;
             color: #0b1a30;
@@ -330,6 +389,8 @@
                             <li class="dropdown-item"><a href="#" onclick="showPage('operations')">Office Of Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('special')">Office Of Special Operations</a></li>
                             <li class="dropdown-item"><a href="#" onclick="showPage('support')">Office Of Support Services</a></li>
+                            <!-- Nově přidaná položka Organization Chart -->
+                            <li class="dropdown-item"><a href="#" onclick="showPage('chart')"><i class="fa-solid fa-sitemap" style="font-size: 0.95rem; color: #333;"></i> Organization Chart</a></li>
                         </ul>
                     </li>
 
@@ -343,15 +404,57 @@
         </div>
     </header>
 
+    <!-- STRÁNKA: DOMŮ (S moderní LAPD / FiveM tématikou) -->
     <div id="page-home" class="page-section active">
         <section class="hero">
             <div class="hero-content">
-                <h2>To Protect and to Serve</h2>
-                <p>Vítejte na oficiálním portálu Los Santos Police Department</p>
+                <h2>Vítejte na oficiálním webu Los Santos Police Department</h2>
+                <p>“TO PROTECT AND TO SERVE”</p>
             </div>
         </section>
+
+        <!-- Elegantní informačně-obrázková sekce po vzoru reálné LAPD -->
+        <div class="home-grid">
+            <div class="home-card">
+                <img src="https://i.imgur.com/v88nS6g.png" alt="LSPD Patrol">
+                <div class="home-card-content">
+                    <h3>Divize Hlídkové Služby</h3>
+                    <p>Zajišťujeme nepřetržitou bezpečnost v ulicích Los Santos. Naše hlídky reagují na tísňová volání občanů s maximálním nasazením 24 hodin denně, 7 dní v týdnu.</p>
+                </div>
+            </div>
+            <div class="home-card">
+                <img src="https://i.imgur.com/RizKj7Z.png" alt="LSPD Air Support">
+                <div class="home-card-content">
+                    <h3>Letecká podpora & Specialisté</h3>
+                    <p>Využíváme nejmodernější taktické postupy a leteckou podporu pro monitorování vysoce rizikových situací a rychlou koordinaci pozemních jednotek v terénu.</p>
+                </div>
+            </div>
+            <div class="home-card">
+                <img src="https://i.imgur.com/k6lPqZJ.png" alt="LSPD Community">
+                <div class="home-card-content">
+                    <h3>Komunitní partnerství</h3>
+                    <p>Bezpečnost města nestojí pouze na represivních složkách. Aktivně spolupracujeme s komunitou a budujeme vzájemnou důvěru pro bezpečnější zítřky.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- STRÁNKA: ORGANIZATION CHART -->
+    <div id="page-chart" class="page-section">
+        <h2 class="section-title">Organization Chart</h2>
+        <div class="station-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="color: #666; margin-bottom: 20px;">Struktura velení a organizační schéma Los Santos Police Department.</p>
+            <!-- Zde bude v budoucnu grafika/tabulka struktury, prozatím placeholder -->
+            <div style="background: #0b1a30; color: #fff; padding: 15px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;">Office of the Chief of Police</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Operations</div>
+                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Special Operations</div>
+                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Support Services</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STRÁNKA: FIND YOUR POLICE STATION -->
     <div id="page-stations" class="page-section">
         <h2 class="section-title">Find Your Police Station</h2>
         <div class="station-grid">
@@ -366,6 +469,7 @@
         </div>
     </div>
 
+    <!-- STRÁNKA: JOIN LSPD (Výběr přihlášek) -->
     <div id="page-join" class="page-section">
         <h2 class="section-title">Náborové programy LSPD</h2>
         <p>Vyberte si kariérní cestu v našem sboru. Kliknutím na program přejdete k formuláři.</p>
@@ -383,6 +487,7 @@
         </div>
     </div>
 
+    <!-- FORMULÁŘ: POLICE ACADEMY -->
     <div id="page-form-academy" class="page-section">
         <div class="form-container">
             <h2 class="section-title">Přihláška do Police Academy</h2>
@@ -407,6 +512,7 @@
         </div>
     </div>
 
+    <!-- FORMULÁŘ: PCD PROGRAM -->
     <div id="page-form-pcd" class="page-section">
         <div class="form-container">
             <h2 class="section-title">Přihláška do PCD Programu</h2>
@@ -431,6 +537,7 @@
         </div>
     </div>
 
+    <!-- STRÁNKA / FORMULÁŘ: COMPLAINTS (Stížnosti) -->
     <div id="page-complaints" class="page-section">
         <div class="form-container">
             <h2 class="section-title" style="border-left-color: #991b1b;">Oficiální podání stížnosti</h2>
@@ -462,6 +569,7 @@
         </div>
     </div>
 
+    <!-- DOČASNÉ STRÁNKY -->
     <div id="page-inside" class="page-section"><h2 class="section-title">Inside the LSPD</h2><p>Obsah se připravuje...</p></div>
     <div id="page-operations" class="page-section"><h2 class="section-title">Office Of Operations</h2><p>Obsah se připravuje...</p></div>
     <div id="page-special" class="page-section"><h2 class="section-title">Office Of Special Operations</h2><p>Obsah se připravuje...</p></div>
@@ -469,7 +577,6 @@
 
     <script>
         // --- KONFIGURACE DISCORD WEBHOOKŮ ---
-        // Vlož sem příslušné URL adresy z tvého Discordu
         const WEBHOOK_ACADEMY   = 'https://discord.com/api/webhooks/1513473195217387521/PEWyWh9OSY2bYsf1dvRdeRuLO2FyJ7A6bbDny7pRb_kfU2mBOsNaSunHXo24xg4QwQEy';
         const WEBHOOK_PCD       = 'https://discord.com/api/webhooks/1513474036351631564/klfGSWqqUmTxiaEhpif_U3Clfkp0Y9I9Mr4CepT-o4QKxkfCuwTcc2orTG_jSfWHWnWl';
         const WEBHOOK_COMPLAINT = 'https://discord.com/api/webhooks/1513474838533242931/-2RO_Bp_pjr6_6nlABuZpmW9YkfSj-W7qmdrz8wwPB3UnBLzdIbDlF7tO667eJDfaUPR';
@@ -492,14 +599,12 @@
         async function sendWebhook(event, formType) {
             event.preventDefault();
 
-            // 1. Kontrola Cooldownu (Max 1 formulář za 60 sekund)
             const currentTime = Date.now();
             if (currentTime - lastSubmitTime < 60000) { 
                 alert('Odesíláte data příliš rychle! Počkejte prosím minutu.');
                 return;
             }
 
-            // 2. Honeypot kontrola proti spambotům
             const botAcademy = document.getElementById('academy_bot').value;
             const botPcd = document.getElementById('pcd_bot').value;
             const botComplaint = document.getElementById('complaint_bot').value;
@@ -511,7 +616,6 @@
             let targetWebhook = '';
             let embedData = {};
 
-            // Roztřídění dat a webhooků podle formuláře
             if (formType === 'Academy') {
                 targetWebhook = WEBHOOK_ACADEMY;
                 const name = document.getElementById('academy_name').value;
@@ -520,7 +624,7 @@
 
                 embedData = {
                     title: "🚨 Nová přihláška: Los Santos Police Academy",
-                    color: 3447003, // Modrá
+                    color: 3447003,
                     fields: [
                         { name: "Jméno (IC)", value: name, inline: true },
                         { name: "Discord", value: discord, inline: true },
@@ -536,7 +640,7 @@
 
                 embedData = {
                     title: "ℹ️ Nová přihláška: PCD Program",
-                    color: 15105570, // Oranžová/Zlatá
+                    color: 15105570,
                     fields: [
                         { name: "Jméno (IC)", value: name, inline: true },
                         { name: "Discord", value: discord, inline: true },
@@ -553,7 +657,7 @@
 
                 embedData = {
                     title: "❌ PODÁNA OFICIÁLNÍ STÍŽNOST NA POLICISTU",
-                    color: 15158332, // Červená
+                    color: 15158332,
                     fields: [
                         { name: "Stěžovatel (IC)", value: userName, inline: true },
                         { name: "Kontakt", value: userContact, inline: true },
@@ -563,7 +667,6 @@
                 };
             }
 
-            // Odeslání na vybraný Discord Webhook
             try {
                 const response = await fetch(targetWebhook, {
                     method: 'POST',
@@ -578,8 +681,8 @@
                 if (response.ok) {
                     alert('Formulář byl úspěšně odeslán!');
                     lastSubmitTime = Date.now();
-                    event.target.reset(); // Promazání polí
-                    showPage('home'); // Zpět na hlavní stránku
+                    event.target.reset();
+                    showPage('home');
                 } else {
                     alert('Chyba při odesílání. Zkontrolujte správnost URL webhooku.');
                 }
