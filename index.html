@@ -373,6 +373,18 @@
             color: #d4af37;
             border-bottom-color: #d4af37;
         }
+        
+        /* Stylování pro nahrané schéma */
+        .chart-image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .chart-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -465,21 +477,19 @@
         </div>
         <div class="station-card">
             <h3>Interní struktury sboru</h3>
-            <p>Nahlédněte pod pokličku jednoho z největších policejních sborů v San Andreas. Sekce Inside the LSPD slouží k prezentaci vnitřních divizí, plánů sboru a struktury velení veřejnosti.</p>
+            <p>Nahlédněte pod pokličku jednoho z největších policejních sborů v San Andreas. Sekce Inside the LSPD serves k prezentaci vnitřních divizí, plánů sboru a struktury velení veřejnosti.</p>
         </div>
     </div>
 
+    <!-- UPRAVENÁ SEKCE PRO TVŮJ OBRÁZEK -->
     <div id="page-chart" class="page-section">
         <h2 class="section-title">Organization Chart</h2>
-        <div class="station-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="color: #666; margin-bottom: 20px;">Struktura velení a organizační schéma Los Santos Police Department.</p>
-            <div style="background: #0b1a30; color: #fff; padding: 15px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;">Office of the Chief of Police</div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Operations</div>
-                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Special Operations</div>
-                <div style="background: #e2e8f0; padding: 15px; font-weight: bold; border-radius: 4px; color: #0b1a30;">Office of Support Services</div>
-            </div>
-            <button class="btn" style="margin-top: 25px;" onclick="showPage('inside')"><i class="fa-solid fa-arrow-left"></i> Zpět na Inside LSPD</button>
+        <div class="chart-image-container">
+            <!-- SEM VLOŽ ODKAZ NA SVOJ OBRÁZEK (Nahraď URL_TVÉHO_OBRÁZKU) -->
+            <img src="https://cdn.discordapp.com/attachments/1204550152262520842/1513930290454855770/Snimek_obrazovky_2026-06-09_173802.png?ex=6a2984f4&is=6a283374&hm=5214ffd99e2135ae12108659de993635c341f729e6fd404a2e9a81abf0ee3b47" alt="LSPD Organization Chart">
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" onclick="showPage('inside')"><i class="fa-solid fa-arrow-left"></i> Zpět na Inside LSPD</button>
         </div>
     </div>
 
